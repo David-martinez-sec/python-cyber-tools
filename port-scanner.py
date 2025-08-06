@@ -25,8 +25,13 @@ for port in range(1, 1025):
     s.settimeout(0.5)
     result = s.connect_ex((target_ip, port))
     if result == 0:
-        print(f"[+] Port {port} is open")
+        try:
+            service = socket.getservbyport(port)
+        except:
+            service = "Unknown"
+        print(f"[+] Port {port} is open ({service})")
     s.close()
+
 
 # Timestamp end
 end_time = datetime.now()
